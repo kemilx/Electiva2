@@ -1,0 +1,22 @@
+name: Alerta DevOps ITLA
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  notificar:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Descargar repositorio
+        uses: actions/checkout@v4
+
+      - name: Ejecutar Hola Mundo
+        run: node app.js
+
+      - name: Enviar notificación a ntfy
+        run: |
+          curl -d "Nuevo push en la rama main del repositorio ${{ github.repository }}. Autor: ${{ github.actor }}" \
+          https://ntfy.sh/devops-itla
